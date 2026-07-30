@@ -6,7 +6,8 @@ CREATE TABLE students (
 CREATE TABLE courses (
     course_id int,
     course_name varchar(80),
-    course_capacity int
+    course_capacity int,
+    course_takers int
 );
 
 CREATE TABLE enrollments (
