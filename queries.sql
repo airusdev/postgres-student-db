@@ -7,14 +7,39 @@ SELECT
 
 FROM courses;
 
+
 -- Names of students enrolled in a specific course
 
+-- complete list of names
 SELECT
+    students.student_name,
+    courses.courses_name
+
+FROM enrollments
+INNER JOIN students ON enrollments.student_id = students.student_id
+INNER JOIN courses ON enrollments.course_id = courses.course_id
+ORDER BY students.student_name;
+
+-- specific course
+SELECT 
     courses.course_name,
     students.student_name
+
+FROM enrollments
+INNER JOIN students ON enrollments.student_id = students.student_id
+INNER JOIN courses ON enrollments.course_id = courses.course_id
+WHERE courses.course_name = 'BSCS';
+
+
+-- Courses with more than N students (3)
+SELECT
+    course_name,
+    course_takers
+
 FROM courses
-INNER JOIN enrollments
+WHERE course_takers > 3
 
 
-ON enrollments.course_id = courses.course_id, enrollments.student_id = students.student_id;
-
+-- Students who are enrolled in more courses than the average student.
+-- i need to get the average number of courses the average student is in
+-- then get the list of students that are enrolled in more courses than the average student

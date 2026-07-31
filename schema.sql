@@ -11,8 +11,8 @@ CREATE TABLE courses (
 );
 
 CREATE TABLE enrollments (
-    student_id int,
     course_id int,
+    student_id int,
     date_enrolled date
 );
 
