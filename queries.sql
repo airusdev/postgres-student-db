@@ -43,3 +43,19 @@ WHERE course_takers > 3
 -- Students who are enrolled in more courses than the average student.
 -- i need to get the average number of courses the average student is in
 -- then get the list of students that are enrolled in more courses than the average student
+
+-- Rank students within each course by enrollment date
+SELECT
+    courses.course_name,
+    students.student_name,
+    enrollments.date_enrolled,
+    DENSE_RANK() OVER (
+        PARTITION BY courses.course_name
+        ORDER BY enrollments.date_enrolled
+    ) AS rank_within_course
+
+FROM enrollments
+INNER JOIN students ON enrollments.student_id = students.student_id
+INNER JOIN courses ON enrollments.course_id = courses.course_id
+ORDER BY courses.course_name, enrollments.date_enrolled ASC;
+
