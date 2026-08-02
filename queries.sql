@@ -9,8 +9,7 @@ FROM courses;
 
 
 -- Names of students enrolled in a specific course
-
--- complete list of names
+    -- complete list of names
 SELECT
     students.student_name,
     courses.courses_name
@@ -20,7 +19,7 @@ INNER JOIN students ON enrollments.student_id = students.student_id
 INNER JOIN courses ON enrollments.course_id = courses.course_id
 ORDER BY students.student_name;
 
--- specific course
+    -- specific course
 SELECT 
     courses.course_name,
     students.student_name
@@ -58,4 +57,17 @@ FROM enrollments
 INNER JOIN students ON enrollments.student_id = students.student_id
 INNER JOIN courses ON enrollments.course_id = courses.course_id
 ORDER BY courses.course_name, enrollments.date_enrolled ASC;
+
+
+-- Full roster: student name, course name, and enrollment date, across all three tables.
+SELECT
+    students.student_name,
+    courses.course_name,
+    enrollments.date_enrolled
+
+FROM enrollments
+INNER JOIN students ON enrollments.student_id = students.student_id
+INNER JOIN courses ON enrollments.course_id = courses.course_id
+ORDER BY students.student_name ASC;
+
 
