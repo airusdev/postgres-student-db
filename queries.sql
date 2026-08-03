@@ -71,3 +71,8 @@ INNER JOIN courses ON enrollments.course_id = courses.course_id
 ORDER BY students.student_name ASC;
 
 
+-- Average number of enrollments per student (one number)
+SELECT
+    COUNT(enrollments.course_id) * 1.0 / (SELECT COUNT(students.student_id) FROM students) AS avg_enrollments_per_student
+    
+FROM enrollments;
