@@ -20,7 +20,7 @@ INNER JOIN courses ON enrollments.course_id = courses.course_id
 ORDER BY students.student_name;
 
     -- specific course
-SELECT 
+SELECT
     courses.course_name,
     students.student_name
 
@@ -44,6 +44,7 @@ WHERE course_takers > 3
 SELECT
     students.student_name,
     COUNT(enrollments.course_id) AS per_student_course_count
+
 FROM students
 INNER JOIN enrollments ON students.student_id = enrollments.student_id
 GROUP BY students.student_name
@@ -86,5 +87,21 @@ ORDER BY students.student_name ASC;
 -- Average number of enrollments per student (one number)
 SELECT
     COUNT(enrollments.course_id) * 1.0 / (SELECT COUNT(students.student_id) FROM students) AS avg_enrollments_per_student
-    
+
 FROM enrollments;
+
+
+-- Find courses whose enrollment count is greater than the average enrollment count per course.
+SELECT
+    course_name,
+    course_takers
+
+FROM courses
+WHERE course_takers > (
+    SELECT
+        SUM(course_takers) * 1.0 / COUNT(course_id) AS avg_course_enrollment
+
+    FROM courses
+)
+GROUP BY course_name, course_takers;
+
