@@ -8,7 +8,12 @@ VALUES
 (5, 'Jasper Thorne'),
 (6, 'Gavin Drake'),
 (7, 'Fiona Beck'),
-(8, 'Valerie Cruz');
+(8, 'Valerie Cruz'),
+(9, 'Ethan Brooks'),
+(10, 'Nina Foster'),
+(11, 'Caleb Monroe'),
+(12, 'Isla Bennett'),
+(13, 'Rowan Ellis');
 
 -- courses table
 INSERT INTO courses
@@ -33,13 +38,9 @@ VALUES
 (2, 6, '2026-08-11'),
 (3, 7, '2026-10-05'),
 (1, 7, '2026-08-27'),
-(3, 8, '2026-09-08'),
-(2, 9, '2026-10-18'),
-(1, 9, '2026-08-14'),
-(3, 9, '2026-09-22'),
-(2, 10, '2026-08-25');
+(3, 8, '2026-09-08');
 
--- school invetory
+-- school inventory
 INSERT INTO school_inventory
 VALUES
 ('Student Desk', 'Classroom Furniture', 450),
