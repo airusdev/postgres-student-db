@@ -17,7 +17,13 @@ CREATE TABLE enrollments (
 );
 
 CREATE TABLE school_inventory (
+    item_id int,
     item varchar(80),
     classification varchar(80),
     item_quantity int
+);
+
+CREATE TABLE course_items (
+    course_id int,
+    item_id int
 );

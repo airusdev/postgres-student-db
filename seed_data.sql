@@ -43,6 +43,13 @@ VALUES
 -- school inventory
 INSERT INTO school_inventory
 VALUES
-('Student Desk', 'Classroom Furniture', 450),
-('Whiteboard Marker', 'Instructional Supplies', 600),
-('Desktop Computer', 'Technology Equipment', 120);
+(1, 'Student Desk', 'Classroom Furniture', 450),
+(2, 'Whiteboard Marker', 'Instructional Supplies', 600),
+(3, 'Desktop Computer', 'Technology Equipment', 120);
+
+-- course items
+INSERT INTO course_items
+VALUES
+(1, 3),
+(2, 2),
+(3, 1);

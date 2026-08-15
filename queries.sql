@@ -12,7 +12,7 @@ FROM courses;
     -- complete list of names
 SELECT
     students.student_name,
-    courses.courses_name
+    courses.course_name
 
 FROM enrollments
 INNER JOIN students ON enrollments.student_id = students.student_id
@@ -40,7 +40,6 @@ WHERE course_takers > 3
 
 
 -- Students who are enrolled in more courses than the average student.
-
 SELECT
     students.student_name,
     COUNT(enrollments.course_id) AS per_student_course_count
@@ -49,7 +48,7 @@ FROM students
 INNER JOIN enrollments ON students.student_id = enrollments.student_id
 GROUP BY students.student_name
 HAVING COUNT(enrollments.course_id) > (
-    SELECT COUNT(enrollments.course_id) * 1.0 / (SELECT COUNT(students.student_id) FROM students)
+    SELECT COUNT(enrollments.course_id) * 1.0 / (SELECT COUNT(students.student_id) FROM students WHERE EXISTS (SELECT student_id FROM enrollments WHERE enrollments.student_id = students.student_id))
     FROM enrollments
 )
 
@@ -105,3 +104,43 @@ WHERE course_takers > (
 )
 GROUP BY course_name, course_takers;
 
+-- Students who are not enrolled in any classes
+SELECT
+    student_id,
+    student_name
+
+FROM students
+WHERE NOT EXISTS (
+    SELECT student_id
+    FROM enrollments
+    where enrollments.student_id = students.student_id
+);
+
+SELECT
+    COUNT(student_id)
+
+FROM students
+WHERE EXISTS (
+    SELECT student_id
+    FROM enrollments
+    where enrollments.student_id = students.student_id
+);
+
+
+-- Running total of enrollments over time, by date. (specific example: '2026-09-02')
+SELECT
+    date_enrolled,
+    COUNT(date_enrolled) OVER (
+ORDER BY date_enrolled) AS cumulative_total
+FROM enrollments;
+
+
+-- Courses that need a specific inventory item, where that item currently has fewer than N units left.
+-- specific example: 367
+SELECT
+    courses.course_name,
+    school_inventory.item_quantity
+FROM course_items
+INNER JOIN courses ON course_items.course_id = courses.course_id
+INNER JOIN school_inventory ON course_items.item_id = school_inventory.item_id
+WHERE school_inventory.item_quantity < 367;
